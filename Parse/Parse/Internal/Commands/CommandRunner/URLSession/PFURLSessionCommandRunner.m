@@ -269,9 +269,14 @@
     configuration.HTTPShouldSetCookies = NO;
 
     // Completely disable caching of responses for security reasons.
+#if TARGET_OS_MACCATALYST
+    // Experimental support for catalyst
+    configuration.URLCache = NSURLCache.sharedURLCache;
+#else
     configuration.URLCache = [[NSURLCache alloc] initWithMemoryCapacity:[NSURLCache sharedURLCache].memoryCapacity
-                                                           diskCapacity:0
-                                                               diskPath:nil];
+    diskCapacity:0
+        diskPath:nil];
+#endif
 
     NSBundle *bundle = [NSBundle mainBundle];
     NSDictionary *headers = [PFCommandURLRequestConstructor defaultURLRequestHeadersForApplicationId:applicationId
