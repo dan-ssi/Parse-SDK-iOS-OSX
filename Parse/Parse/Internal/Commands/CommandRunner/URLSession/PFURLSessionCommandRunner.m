@@ -272,6 +272,7 @@
 #if TARGET_OS_MACCATALYST
     // Experimental support for catalyst
     configuration.URLCache = NSURLCache.sharedURLCache;
+    configuration.URLCache.diskCapacity = 0;
 #else
     configuration.URLCache = [[NSURLCache alloc] initWithMemoryCapacity:[NSURLCache sharedURLCache].memoryCapacity
     diskCapacity:0
